@@ -81,11 +81,11 @@ module comparator_8b_io(
 );
   logic bg_io, sl_io, eq_io; 
   
-  comparator_4b_io HIGH_haflbyte (.A( A[7:4] ), .B( B[7:4] ),
+  comparator_4b_io HIGH_halfbyte (.A( A[7:4] ), .B( B[7:4] ),
                                   .AbgB_i(  bg_io ), .AslB_i(  sl_io ), .AeqB_i(  eq_io ),
                                   .AbgB_o( AbgB_o ), .AslB_o( AslB_o ), .AeqB_o( AeqB_o ));
   
-  comparator_4b_io  LOW_haflbyte (. A( A[3:0] ), .B( B[3:0] ),
+  comparator_4b_io  LOW_halfbyte (. A( A[3:0] ), .B( B[3:0] ),
                                   .AbgB_i(  AbgB_i ), .AslB_i(  AslB_i ), .AeqB_i(  AeqB_i ),
                                   .AbgB_o(   bg_io ), .AslB_o(   sl_io ), .AeqB_o(  eq_io ));
 endmodule: comparator_8b_io
