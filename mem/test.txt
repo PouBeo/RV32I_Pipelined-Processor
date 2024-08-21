@@ -49,20 +49,58 @@ addi x2,  x0,   14       /* F: x43C */
 sb   x2,        60(x9)
 
 begin:
-lw x5, 0(x21)
+lw   x5, 0(x21)
+sw   x5, 0(x18)
 andi x6, x5, 0x10000   /* check SW[16] */
-beq  x6, x0, main      /* waiting until SW[16] on */
+beq  x6, x0, begin     /* waiting until SW[16] = 1 */
+add  x2, x0, x0
 
 convert:
-andi x6, x5, 0x000F    # 4-bit hex0
-andi x7, x5, 0x00F0    # 4-bit hex1
-andi x8, x5, 0x0F00    # 4-bit hex2
-andi x9, x5, 0xF000    # 4-bit hex3
+andi x7, x5, 0xF       /* take out 4 last bits */
+addi x6, x0, 4
+addi x2, x2, 1
+bge  x2, x6, begin
+addi x6, x0, 0
 
+compare:
+beq  x6, x7, hex_out  /* if sw value in x7 == x6, driving led7 value stored in [x9] is taken out */
+addi x6, x6, 1
+add  x9, x9, 4
+jal  compare
 
+hex_out:
+lw x8, 0( x9)
+addi x6, x0, 0
+beq  x2, x6, hex0
+addi x6, x6, 1
+beq  x2, x6, hex1
+addi x6, x6, 1
+beq  x2, x6, hex2
+addi x6, x6, 1
+beq  x2, x6, hex3
+jal  error
 
-next_4bit
+hex0:
+sw x8, 0(x10)
+jal next_hex
 
+hex1:
+sw x8, 0(x11)
+jal next_hex
+
+hex2:
+sw x8, 0(x12)
+jal next_hex
+
+hex3:
+sw x8, 0(x13)
+jal next_hex
+
+next_hex:
+slri x5, x5, 4    
+jal convert
+
+error:
 
 
 
