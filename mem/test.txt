@@ -48,16 +48,20 @@ sb   x2,        56(x9)
 addi x2,  x0,   14       /* F: x43C */
 sb   x2,        60(x9)
 
-begin
+begin:
 lw x5, 0(x21)
-andi x5, 
+andi x6, x5, 0x10000   /* check SW[16] */
+beq  x6, x0, main      /* waiting until SW[16] on */
+
+convert:
+andi x6, x5, 0x000F    # 4-bit hex0
+andi x7, x5, 0x00F0    # 4-bit hex1
+andi x8, x5, 0x0F00    # 4-bit hex2
+andi x9, x5, 0xF000    # 4-bit hex3
 
 
 
-
-
-
-
+next_4bit
 
 
 
