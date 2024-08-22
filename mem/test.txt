@@ -101,8 +101,14 @@ slri x5, x5, 4
 jal convert
 
 error:
-
-
+addi x9, x0, x400
+lb   x2,        60(x9)  /* show FFFF */
+sb   x2,        0(x14)
+sb   x2,        0(x13)
+sb   x2,        0(x12)
+sb   x2,        0(x11)
+sb   x2,        0(x10)
+jal  compare
 
 
 
