@@ -1,18 +1,18 @@
 /*   REG store peripherals's address   */
 addi  x9,  x0, 0x400
-addi x10,  x9, 0x400   /*   LED0: x800 */
-addi x11, x10, 0x10    /*   LED1: x810 */
-addi x12, x10, 0x20    /*   LED2: x820 */
-addi x13, x10, 0x30    /*   LED3: x830 */
-addi x14, x10, 0x40    /*   LED4: x840 */
-addi x15, x10, 0x50    /*   LED5: x850 */
-addi x16, x10, 0x60    /*   LED6: x860 */
-addi x17, x10, 0x70    /*   LED7: x870 */
-addi x18, x10, 0x80    /*   LEDr: x880 */
-addi x19, x10, 0x90    /*   LEDg: x890 */
-addi x20, x10, 0xA0    /*   LCD : x8A0 */
-addi x21, x10, 0x100   /*   SW  : x900 */
-addi x22, x10, 0x110   /*   KEY : x910 */
+addi x10,  x9, 0x400   /*   LED0: x800   */
+addi x11, x10, 0x10    /*   LED1: x810   */
+addi x12, x10, 0x20    /*   LED2: x820   */
+addi x13, x10, 0x30    /*   LED3: x830   */
+addi x14, x10, 0x40    /*   LED4: x840   */
+addi x15, x10, 0x50    /*   LED5: x850   */
+addi x16, x10, 0x60    /*   LED6: x860   */
+addi x17, x10, 0x70    /*   LED7: x870   */
+addi x18, x10, 0x80    /*   LEDr: x880   */
+addi x19, x10, 0x90    /*   LEDg: x890   */
+addi x20, x10, 0xA0    /*   LCD : x8A0   */
+addi x21, x10, 0x100   /*   SW  : x900   */
+addi x22, x10, 0x110   /*   KEY : x910   */
 
 /* MEM address store dec_leg7_a-common */
 addi x2,  x0,   64       /* 0: x400 */
@@ -51,7 +51,8 @@ sb   x2,        60(x9)
 begin:
 lw   x5, 0(x21)
 sw   x5, 0(x18)
-andi x6, x5, 0x10000   /* check SW[16] */
+lui  x6, 16            /* x6 = 10_000h --> x6[16]=1 */
+and  x6, x5, x6        /* check SW[16] */
 beq  x6, x0, begin     /* waiting until SW[16] = 1 */
 add  x2, x0, x0
 
@@ -71,7 +72,7 @@ jal  compare
 hex_out:
 lw x8, 0( x9)
 addi x6, x0, 0
-beq  x2, x6, hex0
+beq  x2, x6, hex0   /* check hex by using x2 */
 addi x6, x6, 1
 beq  x2, x6, hex1
 addi x6, x6, 1
@@ -97,7 +98,7 @@ sw x8, 0(x13)
 jal next_hex
 
 next_hex:
-slri x5, x5, 4    
+srli x5, x5, 4    
 jal convert
 
 error:
@@ -109,16 +110,3 @@ sb   x2,        0(x12)
 sb   x2,        0(x11)
 sb   x2,        0(x10)
 jal  compare
-
-
-
-
-
-
-
-
-
-
-
-
-
