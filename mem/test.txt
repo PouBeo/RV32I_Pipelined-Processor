@@ -1,3 +1,34 @@
+/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+
+Function:
+- This is a simple application of using RV32I instruction set on the DE2 FPGA kit, which has been designed according to the RV32I architecture.
+- There are 18 switches on DE2 kit (SW[17:0]), use SW[15:0] to make 4 4-bit binary, which will be converted and display their BCD hex digit on HEX3 to HEX0.
+- Flow: SW[16] is used as an active switch: converts when ( SW[16] == 1 ), unchanges for else.
+
+*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
+/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+
+Mapping:
+- Data-mem from x000 to x7FF
+- Output_Peripherals-mem from x000 to x7FF, with special:
+     HEX0: x800
+     HEX1: x810
+     HEX2: x820
+     HEX3: x830
+     HEX4: x840
+     HEX5: x850
+     HEX6: x860
+     HEX7: x870
+     LEDr: x880
+     LEDg: x890
+     LCD : x8A0
+- Input_Peripherals-mem from x900 to x910, with special:
+     SW  : x900
+     KEY : x910
+
+*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
+
+
 /*   REG store peripherals's address   */
 addi  x9,  x0, 0x400
 addi x10,  x9, 0x400   /*   LED0: x800   */
