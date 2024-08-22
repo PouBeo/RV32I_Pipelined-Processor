@@ -1,6 +1,23 @@
 `timescale 1ns / 1ps
 /////////////////////////////////////////////////////////////////////
 // Module: Load-Store Unit
+// Mapping:
+//   - Data-mem from x000 to x7FF
+//   - Output_Peripherals-mem from x000 to x7FF, with special:
+//     HEX0: x800
+//     HEX1: x810
+//     HEX2: x820
+//     HEX3: x830
+//     HEX4: x840
+//     HEX5: x850
+//     HEX6: x860
+//     HEX7: x870
+//     LEDr: x880
+//     LEDg: x890
+//     LCD : x8A0
+//   - Input_Peripherals-mem from x900 to x910, with special:
+//     SW  : x900
+//     KEY : x910  
 /////////////////////////////////////////////////////////////////////
 
 module lsu(
