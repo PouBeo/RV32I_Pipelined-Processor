@@ -85,7 +85,7 @@ sw   x5, 0(x18)
 lui  x6, 16            /* x6 = 10_000h --> x6[16]=1 */
 and  x6, x5, x6        /* check SW[16] */
 beq  x6, x0, begin     /* wait until SW[16] = 1 */
-bne  x4, x5, begin     /* if SW unchanges, do nothing */
+beq  x4, x5, begin     /* if SW unchanges, do nothing */
 addi x4, x5, 0         /* update x4 for new SW */
 addi x2, x0, -1        /* reset x2 to loop 4 times for hexs in convert_loop */
 
