@@ -84,18 +84,20 @@ lw   x5, 0(x21)
 sw   x5, 0(x18)
 lui  x6, 16            /* x6 = 10_000h --> x6[16]=1 */
 and  x6, x5, x6        /* check SW[16] */
-beq  x6, x0, begin     /* waiting until SW[16] = 1 */
-add  x2, x0, x0
+beq  x6, x0, begin     /* wait until SW[16] = 1 */
+bne  x4, x5, begin     /* if SW unchanges, do nothing */
+addi x4, x5, 0         /* update x4 for new SW */
+addi x2, x0, -1        /* reset x2 to loop 4 times for hexs in convert_loop */
 
 convert:
 andi x7, x5, 0xF       /* take out 4 last bits */
 addi x6, x0, 4
 addi x2, x2, 1
 bge  x2, x6, begin
-addi x6, x0, 0
-
+addi x6, x0, 0         /* reset x6 to loop 16 times for 16 hex numbers in compare_loop */
+addi x9, x0, 0x400     /* reset x9 to increase-4 16 times for 16 addresses in compare_loop */
 compare:
-beq  x6, x7, hex_out  /* if sw value in x7 == x6, driving led7 value stored in [x9] is taken out */
+beq  x6, x7, hex_out   /* if sw value in x7 == x6, driving led7 value stored in [x9] is taken out */
 addi x6, x6, 1
 add  x9, x9, 4
 jal  compare
@@ -103,7 +105,7 @@ jal  compare
 hex_out:
 lw x8, 0( x9)
 addi x6, x0, 0
-beq  x2, x6, hex0   /* check hex by using x2 */
+beq  x2, x6, hex0     /* check hex by using x2 */
 addi x6, x6, 1
 beq  x2, x6, hex1
 addi x6, x6, 1
