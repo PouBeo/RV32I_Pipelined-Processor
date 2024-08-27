@@ -24,31 +24,11 @@ module hazard_unit_forwarding
   logic ld_nop;
   logic br_nop;
 
-  /*
+
   always_comb begin: FORWARD_TO_RS1
     if (EX_rs1_addr != 5'b0) begin
-      if      (MEM_rd_wren && (MEM_rd_addr == EX_rs1_addr)) forward_rs1_sel = 2'b01 ; // = `forwardWB;
-      else if ( WB_rd_wren && ( WB_rd_addr == EX_rs1_addr)) forward_rs1_sel = 2'b10 ; // = `forwardMEM;  // must be else: MEMstage's data (n-1) is the meaning data to EXstage's instrc (n), not WBstage's (n-2)
-      else                                                  forward_rs1_sel = 2'b00 ; // = `NOforward;
-      end
-    else forward_rs1_sel = 2'b00;
-  end
-  
-  always_comb begin: FORWARD_TO_RS2
-    if (EX_rs2_addr != 5'b0) begin
-       if      (MEM_rd_wren && (MEM_rd_addr == EX_rs2_addr)) forward_rs2_sel = 2'b01 ; // = `forwardWB;
-       else if ( WB_rd_wren && ( WB_rd_addr == EX_rs2_addr)) forward_rs2_sel = 2'b10 ; // = `forwardMEM;
-       else                                                  forward_rs2_sel = 2'b00 ; // = `NOforward;
-      end
-    else forward_rs2_sel = 2'b00;
-  end
-  */
-  
-//
-  always_comb begin: FORWARD_TO_RS1
-    if (EX_rs1_addr != 5'b0) begin
-      if      (MEM_rd_wren && (MEM_rd_addr == EX_rs1_addr)) forward_rs1_sel = `forwardWB;
-      else if ( WB_rd_wren && ( WB_rd_addr == EX_rs1_addr)) forward_rs1_sel = `forwardMEM;  // must be else: MEMstage's data (n-1) is the meaning data to EXstage's instrc (n), not WBstage's (n-2)
+      if      (MEM_rd_wren && (MEM_rd_addr == EX_rs1_addr)) forward_rs1_sel = `forwardMEM;
+      else if ( WB_rd_wren && ( WB_rd_addr == EX_rs1_addr)) forward_rs1_sel = `forwardWB;  // must be else: MEMstage's data (n-1) is the meaning data to EXstage's instrc (n), not WBstage's (n-2)
       else                                                  forward_rs1_sel = `NOforward;
       end
     else forward_rs1_sel = `NOforward;
@@ -56,14 +36,32 @@ module hazard_unit_forwarding
   
   always_comb begin: FORWARD_TO_RS2
     if (EX_rs2_addr != 5'b0) begin
-       if      (MEM_rd_wren && (MEM_rd_addr == EX_rs2_addr)) forward_rs2_sel = `forwardWB;
-       else if ( WB_rd_wren && ( WB_rd_addr == EX_rs2_addr)) forward_rs2_sel = `forwardMEM;
+       if      (MEM_rd_wren && (MEM_rd_addr == EX_rs2_addr)) forward_rs2_sel = `forwardMEM;
+       else if ( WB_rd_wren && ( WB_rd_addr == EX_rs2_addr)) forward_rs2_sel = `forwardWB;
        else                                                  forward_rs2_sel = `NOforward;
       end
     else forward_rs2_sel = `NOforward;
   end
-//
+/*
+  always_comb begin: FORWARD_TO_RS1
+    if (EX_rs1_addr != 5'b0) begin
+      if      (MEM_rd_wren && (MEM_rd_addr == EX_rs1_addr)) forward_rs1_sel = `forwardMEM;
+      else begin 
+           if      ( WB_rd_wren && ( WB_rd_addr == EX_rs1_addr)) forward_rs1_sel = `forwardWB;  // must be else: MEMstage's data (n-1) is the meaning data to EXstage's instrc (n), not WBstage's (n-2)
+           else if ( WB_rd_wren && ( WB_rd_addr == ID_rs1_addr)) forward_rs1_sel = `forwardWB;  // Hazard occurs if instr< a > 's rd_addr and instr< a+3 > 's rs_addr
+      else                                                  forward_rs1_sel = `NOforward;
+      end
+    else forward_rs1_sel = `NOforward;
+  end
   
+  always_comb begin: FORWARD_TO_RS2
+    if (EX_rs2_addr != 5'b0) begin
+       if      (MEM_rd_wren && (MEM_rd_addr == EX_rs2_addr)) forward_rs2_sel = `forwardMEM;
+       else if ( WB_rd_wren && ( WB_rd_addr == EX_rs2_addr)) forward_rs2_sel = `forwardWB;
+       else                                                  forward_rs2_sel = `NOforward;
+      end
+    else forward_rs2_sel = `NOforward;
+  end*/
 
   always_comb begin: RS_SEL_FOR_BRCOMP
     br_rs1_sel = 2'b00;
