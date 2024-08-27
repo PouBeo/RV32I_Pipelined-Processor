@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module tb_ALU;
+module tb_alu;
 
   logic [31:0] a_i  ;
   logic [31:0] b_i  ;
