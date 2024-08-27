@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
-`include "D:/BKU/CTMT/2011919_Pipelined_Processor/Parameter.sv"
+`include "Parameter.sv"
+
 module ALU
 (
   input  logic [31:0] operand1_i ,
