@@ -1,4 +1,5 @@
-`include "D:/BKU/CTMT/2011919_Pipelined_Processor/Parameter.sv"
+`include "Parameter.sv"
+
 module ctrl_unit
 (
     input  logic [31:0] instr_i,
