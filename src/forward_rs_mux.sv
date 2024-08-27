@@ -1,4 +1,4 @@
-`include "D:/BKU/CTMT/2011919_Pipelined_Processor/Parameter.sv"
+`include "Parameter.sv"
 
 module forward_rs_mux (
   input  logic [ 1:0]  forward_sel_i,
