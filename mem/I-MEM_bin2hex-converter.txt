@@ -1,12 +1,15 @@
-/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Function:
 - This is a simple application of using RV32I instruction set on the DE2 FPGA kit, which has been designed according to the RV32I architecture.
 - There are 18 switches on DE2 kit (SW[17:0]), use SW[15:0] to make 4 4-bit binary, which will be converted and display their BCD hex digit on HEX3 to HEX0.
 - Flow: SW[16] is used as an active switch: converts when ( SW[16] == 1 ), unchanges for else.
 
-*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
-/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+Note:
+- This assembly program was compile on "https://riscvasm.lucasteske.dev/#", because of it's suitable memory range.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Mapping:
 - Data-mem from x000 to x7FF
@@ -26,8 +29,7 @@ Mapping:
      SW  : x900
      KEY : x910
 
-*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*   REG store peripherals's address   */
 addi  x9,  x0, 0x400
