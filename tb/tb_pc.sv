@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module tb_PC;
+module tb_pc_block;
 
   logic clk_i;
   logic br_sel_i;
