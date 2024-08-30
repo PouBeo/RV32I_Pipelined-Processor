@@ -1,0 +1,2 @@
+In this project, my I-MEM is 2KB size, which means there're 12 meaning bits PC.
+Without 2 LSB-bits, there are 10 bits PC left. My BTB has 64 entries by using 6 bits (PC[8:3]) for BTB's addresses, and the rest is used for tag.
