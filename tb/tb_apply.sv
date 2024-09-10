@@ -1,4 +1,4 @@
-`include "D:/BKU/CTMT/2011919_Pipelined_Processor/Struct.sv"
+//`include "D:/BKU/CTMT/2011919_Pipelined_Processor/Struct.sv"
 `timescale 1ns/1ps
 
 module tb_apply;
@@ -63,7 +63,7 @@ module tb_apply;
   always #10 clk_i = ~clk_i;
 
   // Reset generation
-  initial begin
+/*  initial begin
     clk_i = 0;
     io_sw_i = 18'b0; // rst_ni = 1'b0;
     #55;
@@ -84,17 +84,29 @@ module tb_apply;
     io_sw_i = 18'b11_0000_0001_0010_0011; // rst_ni = 1'b1;
     #10000;
     $finish;
-  end
+  end */
 
-  // Stimulus
-  /*initial begin
-    // Initialize inputs
-    io_sw_i = 32'h0000_0000;
-    io_push_i = 32'h0000_0000;
-    // Wait for some time before starting clock
-    #5000;
-    
+  initial begin
+    clk_i = 0;
+    io_sw_i = 18'b0; // rst_ni = 1'b0;
+    #55;
+    io_sw_i = 18'b10_0000_0000_0000_0000; // rst_ni = 1'b1;
+    #15;
+    io_sw_i = 18'b10_1010_1011_1100_1101;
+    #15;
+    io_sw_i = 18'b11_1010_1011_1100_1111;
+    #10000;
+    io_sw_i = 18'b10_1010_1010_1010_1010;
+    #300;
+    io_sw_i = 18'b10_1010_1011_1100_1101;
+    #15;
+    io_sw_i = 18'b11_1111_1010_1111_1010;
+    #10000;
+//    io_sw_i = 18'b0; // rst_ni = 1'b0;
+    #55;
+    io_sw_i = 18'b11_0000_0001_0010_0011; // rst_ni = 1'b1;
+    #10000;
     $finish;
-  end*/
+  end
 
 endmodule
