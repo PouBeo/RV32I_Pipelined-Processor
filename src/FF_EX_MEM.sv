@@ -1,4 +1,5 @@
 import StructPkg::*;
+//import StructPkg::EX_MEM_ff;
 
 module FF_EX_MEM
 (
@@ -20,6 +21,7 @@ module FF_EX_MEM
       MEM_o.rd_addr     = 5'b0;
       MEM_o.pc4         = 32'b0;
       MEM_o.alu_data    = 32'b0;
+      MEM_o.rs2_data    = 32'b0;
       MEM_o.rs2_forward = 32'b0;
       end
     else if ( asynclr_i ) begin
@@ -31,6 +33,7 @@ module FF_EX_MEM
       MEM_o.rd_addr     = 5'b0;
       MEM_o.pc4         = 32'b0;
       MEM_o.alu_data    = 32'b0;
+      MEM_o.rs2_data    = 32'b0;
       MEM_o.rs2_forward = 32'b0;
       end
     else if ( en_i ) begin
@@ -39,6 +42,7 @@ module FF_EX_MEM
       MEM_o.byte_num    = EX_i.byte_num;
       MEM_o.ld_unsigned = EX_i.ld_unsigned;
       MEM_o.rd_wren     = EX_i.rd_wren;
+      MEM_o.rs2_data    = EX_i.rs2_data;
       MEM_o.rs2_forward = EX_i.rs2_forward;
       MEM_o.alu_data    = EX_i.alu_data;
       MEM_o.rd_addr     = EX_i.rd_addr;

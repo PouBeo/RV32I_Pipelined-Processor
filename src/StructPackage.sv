@@ -42,7 +42,8 @@ package StructPkg;
       //datapaths:
       logic [31:0] pc4;
       logic [ 4:0] rd_addr;
-      logic [31:0] rs2_forward;
+      logic [31:0] rs2_data;    // nop
+      logic [31:0] rs2_forward; // forward
       logic [31:0] alu_data;
   } EX_MEM_ff;
 
